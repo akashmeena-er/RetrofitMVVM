@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llMain"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="false"
+    android:background="@color/white"
+    android:focusable="true">
+    <RelativeLayout
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:clickable="true"
+        android:elevation="5dp"
+        android:layout_height="?attr/actionBarSize">
+        <TextView
+            android:id="@+id/tvTitle"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hacker_news"
+            android:textColor="@color/text_color_black"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/sp18"/>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"
+        android:background="@color/bordercolor" />
+    <include
+        layout="@layout/message_layout"
+        android:visibility="gone" />
+<LinearLayout
+    android:clickable="false"
+    android:layout_marginHorizontal="@dimen/dp15"
+    android:layout_width="match_parent"
+    android:layout_marginTop="@dimen/dp8"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerViewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <include layout="@layout/news_item_simmer"></include>
+
+                <include layout="@layout/news_item_simmer"></include>
+
+                <include layout="@layout/news_item_simmer"></include>
+
+                <include layout="@layout/news_item_simmer"></include>
+
+                <include layout="@layout/news_item_simmer"></include>
+
+                <include layout="@layout/news_item_simmer"></include>
+
+                <include layout="@layout/news_item_simmer"></include>
+
+                <include layout="@layout/news_item_simmer"></include>
+
+                <include layout="@layout/news_item_simmer"></include>
+
+                <include layout="@layout/news_item_simmer"></include>
+            </LinearLayout>
+        </ScrollView>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fadeScrollbars="true"
+            android:overScrollMode="never"
+            android:clickable="false"
+            android:scrollbarDefaultDelayBeforeFade="1000"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/item_home_list" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</LinearLayout>
+</LinearLayout>

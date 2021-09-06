@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">hackernews</string>
+    <string name="whoops">Whoops</string>
+    <string name="ok">Ok</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="network_error">There\'s no network connection right now. Please check your WiFi or mobile
+    connection.
+       </string>
+    <string name="success">Success</string>
+    <string name="record_updated">Record Updated successfully</string>
+    <string name="something_went">Something went wrong</string>
+    <string name="are_you_sure_want_delete">Are you sure you want to delete?</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="exit_app">Ok</string>
+    <string name="home">Home</string>
+    <string name="retry">Retry</string>
+    <string name="id">News ID</string>
+    <string name="news_type">News Type</string>
+    <string name="title">Title :</string>
+    <string name="read_news">Read News</string>
+    <string name="hacker_news">Hacker News</string>
+    <string name="hecker_news">Hacker News</string>
+    <string name="score">Score :</string>
+</resources>
