@@ -46,10 +46,8 @@ internal class ApiResponseCall<T>(proxy: Call<T>) : CallDelegate<T, ApiResponse<
             val errorMsg = if (msg.isNullOrEmpty()) {
                 response.message()
             } else {
-                // We try to parse the errorBody as a JSON, returns the errorBody as String if
-                // it fails
+
                 try {
-//                    Moshi.Builder().build().adapter(ApiError::class.java).fromJson(msg)?.message
                     val errorObject = JSONObject(msg)
                     errorObject.getString("message")
                 } catch (e: JsonEncodingException) {

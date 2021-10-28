@@ -1,6 +1,6 @@
 package com.it.restroexample.base.repository
-import com.it.restroexample.dto.ArticleResponse
 import com.it.restroexample.base.repository.resorce.Resource
+import com.it.restroexample.local.ArticleResponse
 
 /**
  * Repo class created by Akash 22.49 28/12/2020

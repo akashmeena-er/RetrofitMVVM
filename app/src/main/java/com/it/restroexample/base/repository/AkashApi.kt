@@ -1,5 +1,5 @@
 package com.it.restroexample.base.repository
-import com.it.restroexample.dto.ArticleResponse
+import com.it.restroexample.local.ArticleResponse
 import com.it.restroexample.util.BaseInterface.Companion.WS_TOP
 import retrofit2.Call
 import retrofit2.http.*

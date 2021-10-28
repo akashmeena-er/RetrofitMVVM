@@ -36,6 +36,5 @@ object RetrofitClient {
 
     }
 
-
 }
 

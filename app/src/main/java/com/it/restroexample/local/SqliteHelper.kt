@@ -3,13 +3,13 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.it.restroexample.dto.ArticleResponse
 import java.lang.NullPointerException
 import java.util.*
 /**
  * Created by Akash on 24/12/2020.
  */
 class SqliteHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+
     companion object {
         const val DATABASE_NAME = "hacker.db"
         const val DATABASE_VERSION = 1
@@ -25,13 +25,16 @@ class SqliteHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME,
                 + KEY_SCORE + " INTEGER "
                 + " ) ")
     }
+
     override fun onCreate(sqLiteDatabase: SQLiteDatabase) {
         sqLiteDatabase.execSQL(SQL_TABLE_EVENT)
     }
+
     override fun onUpgrade(sqLiteDatabase: SQLiteDatabase, i: Int, i1: Int) {
         sqLiteDatabase.execSQL(" DROP TABLE IF EXISTS $TABLE_NEWS")
         onCreate(sqLiteDatabase)
     }
+
     fun addTask(articleResponse: ArticleResponse) {
         val db = this.writableDatabase
         val values = ContentValues()
@@ -54,12 +57,12 @@ class SqliteHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME,
             if (cursor.moveToFirst()) {
                 do {
                     try {
-                        val articleResponse = ArticleResponse()
-                        articleResponse.id = cursor.getInt(0)
-                        articleResponse.title = cursor.getString(1)
-                        articleResponse.url = cursor.getString(2)
-                        articleResponse.score = cursor.getInt(3)
-                        newsList.add(articleResponse)
+//                        val articleResponse = ArticleResponse()
+//                        articleResponse.id = cursor.getInt(0)
+//                        articleResponse.title = cursor.getString(1)
+//                        articleResponse.url = cursor.getString(2)
+//                        articleResponse.score = cursor.getInt(3)
+//                        newsList.add(articleResponse)
                     }
                     catch (e:NullPointerException)
                     {

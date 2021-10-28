@@ -52,15 +52,6 @@ public class RoundViewDelegate {
         ta.recycle();
     }
 
-    public void setBackgroundColor(int backgroundColor) {
-        this.backgroundColor = backgroundColor;
-        setBgSelector();
-    }
-
-    public void setBackgroundPressColor(int backgroundPressColor) {
-        this.backgroundPressColor = backgroundPressColor;
-        setBgSelector();
-    }
 
     public void setCornerRadius(int cornerRadius) {
         this.cornerRadius = dp2px(cornerRadius);
@@ -79,93 +70,12 @@ public class RoundViewDelegate {
         setBgSelector();
     }
 
-    public void setStrokeWidth(int strokeWidth) {
-        this.strokeWidth = dp2px(strokeWidth);
-        setBgSelector();
-    }
 
-    public void setStrokeColor(int strokeColor) {
-        this.strokeColor = strokeColor;
-        setBgSelector();
-    }
 
-    public void setStrokePressColor(int strokePressColor) {
-        this.strokePressColor = strokePressColor;
-        setBgSelector();
-    }
 
-    public void setTextPressColor(int textPressColor) {
-        this.textPressColor = textPressColor;
-        setBgSelector();
-    }
 
-    public void setIsRadiusHalfHeight(boolean isRadiusHalfHeight) {
-        this.isRadiusHalfHeight = isRadiusHalfHeight;
-        setBgSelector();
-    }
 
-    public void setIsRadiusHalfHeightLeft(boolean isRadiusHalfHeightLeft) {
-        this.isRadiusHalfHeightLeft = isRadiusHalfHeightLeft;
-        setBgSelector();
-    }
 
-    public void setIsRadiusHalfHeightRight(boolean isRadiusHalfHeightRight) {
-        this.isRadiusHalfHeightRight = isRadiusHalfHeightRight;
-        setBgSelector();
-    }
-
-    public void setIsWidthHeightEqual(boolean isWidthHeightEqual) {
-        this.isWidthHeightEqual = isWidthHeightEqual;
-        setBgSelector();
-    }
-
-    public void setCornerRadius_TL(int cornerRadius_TL) {
-        this.cornerRadius_TL = cornerRadius_TL;
-        setBgSelector();
-    }
-
-    public void setCornerRadius_TR(int cornerRadius_TR) {
-        this.cornerRadius_TR = cornerRadius_TR;
-        setBgSelector();
-    }
-
-    public void setCornerRadius_BL(int cornerRadius_BL) {
-        this.cornerRadius_BL = cornerRadius_BL;
-        setBgSelector();
-    }
-
-    public void setCornerRadius_BR(int cornerRadius_BR) {
-        this.cornerRadius_BR = cornerRadius_BR;
-        setBgSelector();
-    }
-
-    public int getBackgroundColor() {
-        return backgroundColor;
-    }
-
-    public int getBackgroundPressColor() {
-        return backgroundPressColor;
-    }
-
-    public int getCornerRadius() {
-        return cornerRadius;
-    }
-
-    public int getStrokeWidth() {
-        return strokeWidth;
-    }
-
-    public int getStrokeColor() {
-        return strokeColor;
-    }
-
-    public int getStrokePressColor() {
-        return strokePressColor;
-    }
-
-    public int getTextPressColor() {
-        return textPressColor;
-    }
 
     public boolean isRadiusHalfHeight() {
         return isRadiusHalfHeight;
@@ -183,21 +93,6 @@ public class RoundViewDelegate {
         return isWidthHeightEqual;
     }
 
-    public int getCornerRadius_TL() {
-        return cornerRadius_TL;
-    }
-
-    public int getCornerRadius_TR() {
-        return cornerRadius_TR;
-    }
-
-    public int getCornerRadius_BL() {
-        return cornerRadius_BL;
-    }
-
-    public int getCornerRadius_BR() {
-        return cornerRadius_BR;
-    }
 
     protected int dp2px(float dp) {
         final float scale = context.getResources().getDisplayMetrics().density;

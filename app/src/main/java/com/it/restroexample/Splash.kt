@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.it.restroexample.util.BaseFragment
+
 /**
  * created by Akash on 24/12/2020
  */

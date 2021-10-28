@@ -5,9 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.work.Constraints
 import androidx.work.NetworkType
@@ -15,7 +14,7 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import com.it.restroexample.adapter.NewsAdapter
 import com.it.restroexample.base.repository.resorce.Status
-import com.it.restroexample.dto.ArticleResponse
+import com.it.restroexample.local.ArticleResponse
 import com.it.restroexample.local.SqliteHelper
 import com.it.restroexample.util.BaseFragment
 import com.it.restroexample.util.BaseInterface.Companion.PN_FORM
@@ -31,6 +30,7 @@ import java.util.concurrent.TimeUnit
  * created by Akash on 24/12/2020
  */
 class Home : BaseFragment(), View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+
     private var adapter: NewsAdapter? = null
     private var sqliteHelper: SqliteHelper? = null
     private var list = ArrayList<ArticleResponse>()
@@ -41,6 +41,8 @@ class Home : BaseFragment(), View.OnClickListener, SwipeRefreshLayout.OnRefreshL
     private var limit = 7
     private var offset = 7
     private var count = 0
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -67,7 +69,7 @@ class Home : BaseFragment(), View.OnClickListener, SwipeRefreshLayout.OnRefreshL
         val constraints =
             Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
         /**
-         * set periodic for work manager which execute every 15 minutes
+         * set periodic  work manager which execute every 15 minutes
          */
         val request: PeriodicWorkRequest =
             PeriodicWorkRequest.Builder(MyWorker::class.java, 15, TimeUnit.MINUTES)
@@ -76,7 +78,7 @@ class Home : BaseFragment(), View.OnClickListener, SwipeRefreshLayout.OnRefreshL
         WorkManager.getInstance().enqueue(request)
         /**
          *
-         * obesrve when work manger excecute work manager
+         * obesrver when work manger execute work manager
          */
         WorkManager.getInstance().getWorkInfoByIdLiveData(request.id)
             .observe(viewLifecycleOwner, {
@@ -89,12 +91,9 @@ class Home : BaseFragment(), View.OnClickListener, SwipeRefreshLayout.OnRefreshL
         /**
          * create viewmodel object
          */
-        val factory = HomeViewModel.Factory(activity!!.application)
-        val viewModel = ViewModelProviders.of(this, factory)
-            .get(HomeViewModel::class.java)
-        val homeViewModelFactory = HomeViewModel.Factory(activity!!.application)
-        homeViewModel = ViewModelProviders.of(this, homeViewModelFactory)
-            .get(HomeViewModel::class.java)
+
+        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
         /**
          *call Api for news ids
          */
@@ -102,7 +101,7 @@ class Home : BaseFragment(), View.OnClickListener, SwipeRefreshLayout.OnRefreshL
         /**
          *To observe the newsID api data from then Viewmodel
          */
-        viewModel.authenticationState.observe(viewLifecycleOwner) {
+        homeViewModel.authenticationState.observe(viewLifecycleOwner) {
             if (it.status == Status.SUCCESS) {
                 isLatestNews = true
                 listNewsID = it.data!!
@@ -121,23 +120,22 @@ class Home : BaseFragment(), View.OnClickListener, SwipeRefreshLayout.OnRefreshL
                 )
             }
         }
+
         /**
-         *To observe the  news details api data from then Viewmodel
+         *To observe the  news details api data from then ViewModel
          */
-        viewModel.authenticationStateDetails.observe(viewLifecycleOwner) { it ->
+        homeViewModel.authenticationStateDetails.observe(viewLifecycleOwner) { it ->
             if (it.status == Status.SUCCESS) {
                 val articleResponse: ArticleResponse = it.data!!
                 /**
                  *
                 Add news article to local database and list
                  */
-                Log.d("respomce", "  "+articleResponse+ "  "+articleResponse.url+"  "+articleResponse.score)
                 if(articleResponse.url!="null" &&  articleResponse.score!=null) {
-                    sqliteHelper!!.addTask(articleResponse)
+                    homeViewModel.addTask(context,articleResponse);
                     list.add(articleResponse)
                 }
                 count++
-//                list.sortBy { it.score }
                 if (count == limit) {
                     hideProgressDialog()
                     adapter!!.notifyDataSetChanged()
@@ -166,6 +164,7 @@ class Home : BaseFragment(), View.OnClickListener, SwipeRefreshLayout.OnRefreshL
         showProgressDialog()
         homeViewModel.getAllNewsID()
     }
+
     private fun callNewsDetailApi(count: Int) {
         if (!isNetworkAvailable) {
             hideProgressDialog()
@@ -178,6 +177,7 @@ class Home : BaseFragment(), View.OnClickListener, SwipeRefreshLayout.OnRefreshL
         }
         homeViewModel.getNewsDetailFromID(count)
     }
+
     /**
      * set recycler view and set layout manager
      */
@@ -187,8 +187,9 @@ class Home : BaseFragment(), View.OnClickListener, SwipeRefreshLayout.OnRefreshL
         adapter!!.onClickCallback = onItemClickCallback
         rvList.adapter = adapter
     }
+
+
     /**
-     *
      * get call back from News adapter for news Item
      */
     private var onItemClickCallback: OnClickListenerApp.OnClickCallback =
@@ -223,8 +224,7 @@ class Home : BaseFragment(), View.OnClickListener, SwipeRefreshLayout.OnRefreshL
 
     private fun getData() {
         if (!isNetworkAvailable || isLatestNews) {
-            sqliteHelper = SqliteHelper(requireContext())
-            list = sqliteHelper!!.getAllTopNews
+            list=  homeViewModel.getAllTopNews(context)
             setRecyclerView()
 
         } else {
@@ -237,17 +237,13 @@ class Home : BaseFragment(), View.OnClickListener, SwipeRefreshLayout.OnRefreshL
         }
     }
     private fun getDetails() {
-        sqliteHelper = SqliteHelper(requireContext())
-//        delete previous records from local
-        sqliteHelper!!.deletePreviousData()
         /**
-         *
-        if the list size is less then the 20 so preventing the ArrayIndexOutOf exceptions setting limit to listsize
+         if the list size is less then the 20 so preventing the ArrayIndexOutOf exceptions setting limit to listsize
          */
         if (listNewsID.size < maxLimit) {
             limit = listNewsID.size - 1
         }
-//        showProgressDialog()
+        showProgressDialog()
         callNewsDetailApi(listNewsID[count])
 
     }

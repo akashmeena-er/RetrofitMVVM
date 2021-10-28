@@ -16,6 +16,9 @@ import com.it.restroexample.dialog.DialogProgress
 
 open class BaseFragment : Fragment() {
     private var dialogOK: DialogOK? = null
+    private var dialogProgress: DialogProgress? = null
+
+
     fun dialogOK(context: Context, title: String, message: String) {
         if (dialogOK != null && dialogOK!!.isShowing)
             dialogOK!!.dismiss()
@@ -23,7 +26,6 @@ open class BaseFragment : Fragment() {
         dialogOK!!.show()
     }
 
-    private var dialogProgress: DialogProgress? = null
     fun showProgressDialog() {
         if (activity != null) {
             if (dialogProgress != null && dialogProgress!!.isShowing)
@@ -37,6 +39,7 @@ open class BaseFragment : Fragment() {
         if (dialogProgress != null && dialogProgress!!.isShowing)
             dialogProgress!!.dismiss()
     }
+
     val isNetworkAvailable: Boolean
         get() {
             try {
@@ -50,6 +53,7 @@ open class BaseFragment : Fragment() {
             }
             return false
         }
+
     fun addFragmentWithBack(fragment: Fragment, fragmentTag: String) {
         try {
             if (activity == null) return

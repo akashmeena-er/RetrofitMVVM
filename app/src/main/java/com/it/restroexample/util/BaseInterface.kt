@@ -7,7 +7,6 @@ interface BaseInterface {
     companion object {
         const val WS_BASE = "https://hacker-news.firebaseio.com/v0/"
         const val WS_TOP = "/v0/topstories.json?print=pretty"
-
         const val PN_FORM = "form"
     }
 }
